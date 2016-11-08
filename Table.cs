@@ -1,0 +1,89 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+namespace Colet
+{
+    public class Table
+    {
+        public string name{get; set;}
+        public int life{get; set;}
+        public BigInteger energy{get; set;}
+
+        public Table(string name="", int life=1, int energy=0) { }
+
+        public void Print()
+        {
+            Console.WriteLine("name={0},energy={1},life={2}", name, energy, life);
+        }
+
+        public void isPrime()
+        {
+            bool flag = true;
+            int startTime = Environment.TickCount;
+            BigInteger temp = BigInteger.Parse(Sqrt(energy));
+            for (BigInteger i = 2; i < temp; i++) { if (temp % i == 0) { flag = false; break; } }
+            int endTime = Environment.TickCount;
+            if (flag)
+            {
+                this.life = endTime - startTime + 1;
+                this.name += "P";
+            }
+        }
+
+        public string Sqrt(BigInteger bi)
+        {
+            string biNum = bi.ToString();
+            int length = biNum.Length;
+            string[] splits;
+            if (length % 2 == 0)
+            {
+                splits = new string[length / 2];
+                for (int i = 0; i < splits.Length; i ++)
+                {
+                    splits[i] = biNum.Substring(i*2, 2);
+                }
+            }
+            else
+            {
+                splits = new string[length / 2 + 1];
+                splits[0] = biNum.Substring(0,1);
+                for (int i = 1; i < splits.Length; i ++)
+                {
+                    splits[i] = biNum.Substring(i*2-1, 2);
+                }
+            }
+
+            BigInteger quotient;
+            BigInteger remainder;
+            BigInteger tryquot;
+            BigInteger flag;
+            BigInteger result =BigInteger.Parse("0");
+            BigInteger last =BigInteger.Parse("0");
+
+            for (int i = 0; i < splits.Length; i++)
+            {
+                remainder = BigInteger.Parse(splits[i]) + last * 100;
+                for (int j = 0; j <= 9; j++)
+                {
+                    tryquot = BigInteger.Parse(j.ToString());
+                    quotient = result * BigInteger.Parse("20") + tryquot;
+                    last = remainder - quotient * tryquot;
+                    flag = remainder - (quotient + BigInteger.Parse("1")) * (tryquot + BigInteger.Parse("1"));
+                    if (last >= 0 && flag < 0)
+                    {
+                        result = result * 10 + tryquot;
+                        Console.WriteLine(last.ToString());
+                        Console.WriteLine(result.ToString() + "C");
+                        break;
+                    }
+                }
+            }
+
+            return result.ToString();
+        }
+    }
+}
