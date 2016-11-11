@@ -87,6 +87,7 @@ namespace Colects
         {
             int length = energy.ToString().Length * 2;
             BigInteger[] temp = new BigInteger[length];
+            BigInteger[] help = new BigInteger[length];
             for (BigInteger i = 2; i < energy; i++)
             {
                 for (int j = 0; j < length; j++)
@@ -100,9 +101,17 @@ namespace Colects
                             break;
                         }
                     }
+                }
+                for(int j = 0; j < length; j++)
+                {
+                    if (help[j] == 0)
+                    {
+                        help[j] = i;
+                        break;
+                    }
                     else
                     {
-                        if (i % temp[j] == 0) break;
+                        if (i % help[j] == 0) break;
                     }
                 }
             }
