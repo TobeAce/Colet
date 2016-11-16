@@ -20,18 +20,39 @@ namespace Colet
             Console.WriteLine("name={0},energy={1},life={2}", name, energy, life);
         }
 
-        public void isPrime()
+        public BigInteger getFactor(BigInteger bi)
         {
-            bool flag = true;
-            int startTime = Environment.TickCount;
-            BigInteger temp = BigInteger.Parse(Sqrt(energy));
-            for (BigInteger i = 2; i < temp; i++) { if (temp % i == 0) { flag = false; break; } }
-            int endTime = Environment.TickCount;
-            if (flag)
+            BigInteger result = bi;
+            for (BigInteger i = 2; i <= bi; i++)
             {
-                this.life = endTime - startTime + 1;
-                this.name += "P";
+                if (i > Sqrt(bi)) break;
+                if (bi % i == 0) { result = i; break; }
             }
+            return result;
+        }
+
+        public string toHex(BigInteger bi)
+        {
+            string sb ="";
+            string result ="";
+            do
+            {
+                BigInteger temp = bi % 16;
+                switch (temp.ToString())
+                {
+                    case "10": { sb = "a"; break; }
+                    case "11": { sb = "b"; break; }
+                    case "12": { sb = "c"; break; }
+                    case "13": { sb = "d"; break; }
+                    case "14": { sb = "e"; break; }
+                    case "15": { sb = "f"; break; }
+                    default: { sb = temp.ToString(); break; }
+                }
+                result = sb +result;
+                bi = bi / 16;
+            } while (bi % 16 != 0);
+
+            return result;
         }
 
         public string Sqrt(BigInteger bi)
