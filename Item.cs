@@ -87,9 +87,12 @@ namespace Colects
         {
             int length = energy.ToString().Length * 2;
             BigInteger[] temp = new BigInteger[length];
-            BigInteger[] help = new BigInteger[length];
-            for (BigInteger i = 2; i < energy; i++)
+            if (energy % 2 == 0) temp[0] = 2;       //排除偶数
+            for (BigInteger i = 3; i <= energy; i += 2)
             {
+                //若 energy 是素数，尽早退出
+                if (i > Sqrt(energy) && temp[0] == 0) { temp[0] = energy; break; }
+                
                 for (int j = 0; j < length; j++)
                 {
                     if (temp[j] == 0)
@@ -97,21 +100,9 @@ namespace Colects
                         if (energy % i == 0)
                         {
                             temp[j] = i;
-                            energy = energy / i;
+                            do { energy = energy / i; } while (energy % i == 0);    //对相同质因数，彻底排除
                             break;
                         }
-                    }
-                }
-                for(int j = 0; j < length; j++)
-                {
-                    if (help[j] == 0)
-                    {
-                        help[j] = i;
-                        break;
-                    }
-                    else
-                    {
-                        if (i % help[j] == 0) break;
                     }
                 }
             }
