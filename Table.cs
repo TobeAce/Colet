@@ -50,7 +50,7 @@ namespace Colet
                 }
                 result = sb +result;
                 bi = bi / 16;
-            } while (bi % 16 != 0);
+            } while (bi > 0);
 
             return result;
         }
