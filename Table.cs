@@ -9,18 +9,22 @@ namespace Colet
 {
     public class Table
     {
-        public string name{get; set;}
-        public int life{get; set;}
-        public BigInteger energy{get; set;}
+        private string name;
+        private int life;
+        private BigInteger energy;
+        
+        public string Name{get; set;} =""
+        public int Life{get; set;} =1
+        public BigInteger Energy{get; set;} =BigInteger.Parse("1")
 
-        public Table(string name="", int life=1, int energy=0) { }
+        public Table() { }
 
         public void Print()
         {
             Console.WriteLine("name={0},energy={1},life={2}", name, energy, life);
         }
 
-        public BigInteger getFactor(BigInteger bi)
+        public static BigInteger getFactor(BigInteger bi)
         {
             BigInteger result = bi;
             for (BigInteger i = 2; i <= bi; i++)
@@ -31,7 +35,7 @@ namespace Colet
             return result;
         }
 
-        public string toHex(BigInteger bi)
+        public static string toHex(BigInteger bi)
         {
             string sb ="";
             string result ="";
@@ -55,7 +59,7 @@ namespace Colet
             return result;
         }
 
-        public string Sqrt(BigInteger bi)
+        public static BigInteger Sqrt(BigInteger bi)
         {
             string biNum = bi.ToString();
             int length = biNum.Length;
@@ -104,7 +108,7 @@ namespace Colet
                 }
             }
 
-            return result.ToString();
+            return result;
         }
     }
 }
